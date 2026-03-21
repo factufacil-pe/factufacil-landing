@@ -1,0 +1,132 @@
+---
+/**
+ * /facturacion-electronica — dedicated Facturación Electrónica feature page.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const whatsapp = 'https://wa.me/51964979320';
+---
+
+<BaseLayout
+  title="Facturación Electrónica"
+  description="Emite comprobantes electrónicos ilimitados conectados a SUNAT. Boletas, facturas, guías de remisión y más con FactuFacil."
+>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-brand-900 via-brand-800 to-brand-700 py-20 text-white">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+      <span class="mb-4 inline-block rounded-full bg-green-500/20 px-4 py-1.5 text-sm font-semibold text-green-300 ring-1 ring-green-400/30">
+        Conectado a SUNAT
+      </span>
+      <h1 class="text-4xl font-extrabold leading-tight sm:text-5xl mb-6">
+        Facturación Electrónica<br />
+        <span class="text-yellow-300">simple y sin límites</span>
+      </h1>
+      <p class="text-lg text-brand-100 mb-8 max-w-2xl mx-auto">
+        Emite todos los comprobantes que tu negocio necesita, directamente conectado a SUNAT y RENIEC,
+        desde cualquier dispositivo.
+      </p>
+      <a
+        href="/suscripcion"
+        class="inline-flex items-center gap-2 rounded-xl bg-yellow-400 px-7 py-3.5 text-base font-bold text-gray-900 hover:bg-yellow-300 transition-colors shadow-lg"
+      >
+        Comenzar gratis
+      </a>
+    </div>
+  </section>
+
+  <!-- Main features grid -->
+  <section class="py-20 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-14">
+        Todo lo que incluye la Facturación Electrónica
+      </h2>
+
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {[
+          {
+            title: 'Comprobantes Ilimitados',
+            desc:  'Emite la cantidad de facturas y boletas que necesites sin restricciones ni costos adicionales por volumen.',
+            icon:  'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+          },
+          {
+            title: 'Boletas y Facturas',
+            desc:  'Genera boletas de venta y facturas electrónicas con firma digital y envío automático al cliente.',
+            icon:  'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
+          },
+          {
+            title: 'Guía de Remisión Electrónica',
+            desc:  'Emite guías de remisión para el traslado de mercadería de forma rápida y vinculada a tus ventas.',
+            icon:  'M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0',
+          },
+          {
+            title: 'Múltiples Series y Sucursales',
+            desc:  'Gestiona varias sucursales o cajas con sus propias series de comprobantes desde un solo sistema.',
+            icon:  'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+          },
+          {
+            title: 'Validación RENIEC',
+            desc:  'Consulta automáticamente los datos de DNI del cliente para emitir comprobantes sin errores.',
+            icon:  'M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2',
+          },
+          {
+            title: 'Notas de Crédito y Débito',
+            desc:  'Emite notas de crédito y débito electrónicas vinculadas al comprobante original con un solo clic.',
+            icon:  'M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2v16z',
+          },
+        ].map(({ title, desc, icon }) => (
+          <div class="rounded-2xl bg-gray-50 p-7 border border-gray-100 hover:bg-brand-50 transition-colors">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d={icon} />
+              </svg>
+            </div>
+            <h3 class="mb-2 text-lg font-bold text-gray-900">{title}</h3>
+            <p class="text-sm leading-relaxed text-gray-500">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SUNAT compliance section -->
+  <section class="py-16 bg-gray-50">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-3 rounded-2xl bg-white border border-gray-200 px-8 py-5 shadow-sm mb-10">
+        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <div class="text-left">
+          <p class="font-bold text-gray-900">100% Homologado con SUNAT</p>
+          <p class="text-sm text-gray-500">Cumple con todos los requisitos de la norma peruana de facturación electrónica</p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-extrabold text-gray-900 mb-4">
+        ¿Listo para modernizar tu facturación?
+      </h2>
+      <p class="text-gray-500 mb-8">
+        Únete a cientos de negocios en Perú que ya facturan de forma electrónica con FactuFacil.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href="/suscripcion"
+          class="inline-flex items-center gap-2 rounded-xl bg-brand-700 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-800 transition-colors"
+        >
+          Empezar ahora
+        </a>
+        <a
+          href={whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          Contactar asesor
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

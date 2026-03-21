@@ -1,0 +1,83 @@
+---
+/**
+ * Button — reusable polymorphic button/link component for FactuFacil.
+ *
+ * When `href` is provided, renders an <a> tag for correct keyboard and
+ * accessibility semantics. Otherwise renders a <button>.
+ */
+
+type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
+type Size    = 'sm' | 'md' | 'lg';
+
+interface Props {
+  href?:        string;
+  variant?:     Variant;
+  size?:        Size;
+  type?:        'button' | 'submit' | 'reset';
+  class?:       string;
+  external?:    boolean;
+  disabled?:    boolean;
+  'aria-label'?: string;
+}
+
+const {
+  href,
+  variant     = 'primary',
+  size        = 'md',
+  type        = 'button',
+  class: extraClass = '',
+  external    = false,
+  disabled    = false,
+  'aria-label': ariaLabel,
+} = Astro.props;
+
+const baseClasses =
+  'inline-flex items-center justify-center gap-2 font-semibold rounded-lg ' +
+  'transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 ' +
+  'focus-visible:ring-brand-500 focus-visible:ring-offset-2 disabled:opacity-50 ' +
+  'disabled:pointer-events-none select-none';
+
+const variantClasses: Record<Variant, string> = {
+  primary:   'bg-brand-700 text-white hover:bg-brand-800 active:bg-brand-900',
+  secondary: 'border border-brand-700 text-brand-700 hover:bg-brand-50 active:bg-brand-100',
+  ghost:     'text-gray-700 hover:bg-gray-100 active:bg-gray-200',
+  danger:    'bg-red-600 text-white hover:bg-red-700 active:bg-red-800',
+};
+
+const sizeClasses: Record<Size, string> = {
+  sm: 'px-3 py-1.5 text-sm',
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-6 py-3 text-base',
+};
+
+const classes = [
+  baseClasses,
+  variantClasses[variant],
+  sizeClasses[size],
+  extraClass,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+{href ? (
+  <a
+    href={href}
+    class={classes}
+    aria-label={ariaLabel}
+    rel={external ? 'noopener noreferrer' : undefined}
+    target={external ? '_blank' : undefined}
+    aria-disabled={disabled ? 'true' : undefined}
+  >
+    <slot />
+  </a>
+) : (
+  <button
+    type={type}
+    class={classes}
+    aria-label={ariaLabel}
+    disabled={disabled}
+  >
+    <slot />
+  </button>
+)}

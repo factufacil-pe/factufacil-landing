@@ -1,0 +1,583 @@
+---
+/**
+ * Home page — /
+ *
+ * Primary adapter: calls use cases from the container, unwraps Results,
+ * and passes plain domain data to the template. Zero business logic here.
+ *
+ * Design replicated from ProgriSaaS WordPress theme with Elementor.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { container } from '../infrastructure/container/Container';
+
+// ---------------------------------------------------------------------------
+// Data fetching
+// ---------------------------------------------------------------------------
+
+const featuresResult    = await container.getAllFeatures.execute();
+const planesResult      = await container.getAllPlanes.execute();
+const testimoniosResult = await container.getAllTestimonios.execute();
+
+if (featuresResult.isErr)    throw new Error(`Features error: ${featuresResult.error}`);
+if (planesResult.isErr)      throw new Error(`Planes error: ${planesResult.error}`);
+if (testimoniosResult.isErr) throw new Error(`Testimonios error: ${testimoniosResult.error}`);
+
+const { features }    = featuresResult.value;
+const { planes }      = planesResult.value;
+const { testimonios } = testimoniosResult.value;
+
+const whatsapp = 'https://wa.me/51964979320';
+
+// Feature icon colors from Elementor data
+const featureColors: Record<string, { icon: string; title: string }> = {
+  mobile:    { icon: '#5322C0', title: '#5322C0' },
+  inventory: { icon: '#FE3466', title: '#FE3466' },
+  cart:      { icon: '#34E3D3', title: '#34E3D3' },
+  chart:     { icon: '#FF6B52', title: '#FF6B52' },
+};
+---
+
+<BaseLayout
+  title="FactuFacil — Sistema de Facturacion Electronica"
+  description="Sistema de facturacion electronica que crece contigo. Gestion de caja, inventarios, puntos de ventas y mas."
+>
+
+  <!-- ===================================================================== -->
+  <!-- 1. HERO — bg green #3A8D35, split 50/50, curve bottom divider        -->
+  <!-- ===================================================================== -->
+  <section id="top" class="relative overflow-hidden bg-brand-500 pt-[200px] pb-[200px] md:pt-20 md:pb-20">
+    <!-- Background image pattern -->
+    <div class="absolute inset-0 opacity-30" aria-hidden="true">
+      <img src="/images/home2-bg-1.png" alt="" class="absolute top-0 left-0 h-full object-cover object-left-top pointer-events-none" />
+    </div>
+
+    <!-- Curved bottom divider -->
+    <div class="absolute bottom-0 left-0 w-[110%] -ml-[5%]" aria-hidden="true">
+      <svg viewBox="0 0 1440 165" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" class="w-full h-[165px] md:h-[100px]">
+        <path d="M0 165C0 165 360 0 720 0C1080 0 1440 165 1440 165H0Z" fill="#FFFFFF"/>
+      </svg>
+    </div>
+
+    <div class="relative mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+
+        <!-- Left column: text -->
+        <div class="text-left lg:pr-4 order-2 lg:order-1 mt-[60px] lg:mt-0">
+          <h1 class="text-[#DC4140] font-semibold text-[42px] lg:text-[60px] leading-[1.2] mb-0">
+            FactuFacil
+          </h1>
+          <h2 class="text-[#353A8D] font-medium text-[36px] lg:text-[48px] leading-[1.2] mb-5">
+            Sistema de facturacion electronica que crece contigo
+          </h2>
+          <p class="text-white text-lg leading-[32px] font-normal mb-[35px]">
+            Nos dedicamos a lo que tu negocio necesita, gestion de caja, inventarios, puntos de ventas y mas para que tu negocio no pare de crecer
+          </p>
+
+          <a
+            href="https://demo.factufacil.pe"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block rounded-pill bg-[#DC4140] px-[71.5px] py-[18px] text-base font-medium text-white hover:bg-[#272660] transition-colors duration-300 mb-4"
+          >
+            VER DEMO
+          </a>
+
+          <div class="text-white text-sm mt-3">
+            <p class="mb-0">Usuario: demo01@gmail.com</p>
+            <p class="mb-0">Clave: 123456</p>
+          </div>
+        </div>
+
+        <!-- Right column: image -->
+        <div class="order-1 lg:order-2 text-center lg:mt-[30px]">
+          <img
+            src="/images/Macbook-y-celular.png"
+            alt="FactuFacil en Macbook y celular"
+            class="w-full max-w-[600px] mx-auto lg:max-w-none"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 2. ABOUT — Features section (4 icon boxes in grid)                    -->
+  <!-- ===================================================================== -->
+  <section id="about" class="py-[100px] md:py-[60px]">
+    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+
+      <!-- Section heading -->
+      <div class="text-center mb-[35px] max-w-[66.67%] mx-auto px-[15px]">
+        <p class="text-cta-500 text-base font-medium mb-2">Ferreterias, Mini market, Boticas, Restaurante y mucho mas</p>
+        <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-5">
+          FactuFacil se adapta a cualquier modelo <br class="hidden lg:block" /> de negocio que tengas
+        </h2>
+      </div>
+
+      <!-- Three screens image -->
+      <div class="text-center mb-[50px] px-[15px]">
+        <img
+          src="/images/tres-pantallas-original.png"
+          alt="FactuFacil en multiples dispositivos"
+          class="w-full max-w-[1000px] mx-auto"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Feature cards grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
+        {features.map((f) => {
+          const colors = featureColors[f.icon] || featureColors['chart'];
+          return (
+            <div class="px-[15px] pt-5 mb-8 lg:mb-0">
+              <div class="text-center">
+                <div class="mb-[35px]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke={colors.icon} stroke-width="1.5" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d={
+                      f.icon === 'mobile' ? 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z' :
+                      f.icon === 'inventory' ? 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4' :
+                      f.icon === 'cart' ? 'M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z' :
+                      'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'
+                    } />
+                  </svg>
+                </div>
+                <h3 class="text-[24px] font-medium leading-[1.2] mb-5" style={`color: ${colors.title}`}>
+                  {f.title}
+                </h3>
+                <p class="text-body text-lg leading-[1.78]">{f.description}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <!-- Saber Mas button -->
+      <div class="text-center mt-10">
+        <a
+          href={whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block rounded-pill bg-[#DC4140] px-[45px] py-[18px] text-base font-medium text-white hover:bg-[#272660] transition-colors duration-300 border border-transparent hover:border-teal"
+        >
+          Saber Mas
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 3. FACTURACION ELECTRONICA — Split layout (image + text + icon list)  -->
+  <!-- ===================================================================== -->
+  <section id="payment" class="py-[140px] md:py-[60px] bg-[#3A8D350D]">
+    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+
+      <!-- Facturacion subsection -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pb-[150px] md:pb-[60px]">
+        <!-- Image -->
+        <div class="px-[15px] text-center lg:text-left">
+          <img
+            src="/images/factura-2.png"
+            alt="Facturacion electronica FactuFacil"
+            class="w-full max-w-[500px] mx-auto lg:mx-0"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Text -->
+        <div class="px-[15px]">
+          <p class="text-[#DC4140] text-base font-medium mb-2">Conexion con SUNAT</p>
+          <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-5">
+            Facturacion Electronica
+          </h2>
+          <p class="text-body text-lg leading-[32px] mb-[10px]">
+            Conectate a la SUNAT y evita las multas
+          </p>
+
+          <ul class="space-y-3 mb-10 list-none p-0">
+            {[
+              'Emite comprobantes ilimitados',
+              'Reportes de Boletas y facturas',
+              'Emite Guia remision electronica',
+              'Crea varios numeros de series para diferentes sucursales',
+            ].map((item) => (
+              <li class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#DC4140] flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-dark text-lg">{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href={whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block rounded-pill bg-[#DC4140] px-[77px] py-[18px] text-base font-medium text-white hover:bg-[#272660] transition-colors duration-300"
+          >
+            Saber Mas
+          </a>
+        </div>
+      </div>
+
+      <!-- Gestion de Compras e Inventarios subsection -->
+      <div class="grid grid-cols-1 lg:grid-cols-[42%_8%_50%] gap-0 items-start pb-[120px] md:pb-[60px]">
+        <!-- Text -->
+        <div class="px-[15px] order-1">
+          <p class="text-cta-500 text-base font-medium mb-2">Te ensenamos Metodologias de Gestion</p>
+          <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-5">
+            Gestion de Compras e Inventarios
+          </h2>
+          <p class="text-body text-lg leading-[32px] mb-[30px]">
+            Ingresa tus compras en nuestro sistema para que tengas un control de tu inventario
+          </p>
+
+          <!-- Icon box: Compras -->
+          <div class="flex items-start gap-5 mb-[30px]">
+            <div class="flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-[30px] w-[30px] text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-dark text-xl font-semibold mb-2">Cotizacion, Orden de compra y compras</h4>
+              <p class="text-body text-base leading-[28px]">Genera el flujo de la gestion de compras para que tengas un mayor control en tus costos.</p>
+            </div>
+          </div>
+
+          <!-- Icon box: Inventarios -->
+          <div class="flex items-start gap-5">
+            <div class="flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-[30px] w-[30px] text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-dark text-xl font-semibold mb-2">Gestion de inventarios</h4>
+              <p class="text-body text-base leading-[28px]">Implementa metodologias para una buena gestion de inventario (Pareto e inventario ciclico)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spacer (hidden on mobile) -->
+        <div class="hidden lg:block order-2"></div>
+
+        <!-- Image -->
+        <div class="px-[15px] order-3 mt-10 lg:mt-0">
+          <img
+            src="/images/compras.png"
+            alt="Gestion de compras e inventarios"
+            class="w-full max-w-[500px] mx-auto"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <!-- APP FactuFacil subsection -->
+      <div class="grid grid-cols-1 lg:grid-cols-[50%_8%_42%] gap-0 items-center">
+        <!-- Image (pago app) -->
+        <div class="px-[15px] order-2 lg:order-1 mt-10 lg:mt-0">
+          <img
+            src="/images/pago-1.png"
+            alt="APP FactuFacil"
+            class="w-full max-w-[400px] mx-auto"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Spacer -->
+        <div class="hidden lg:block order-2"></div>
+
+        <!-- Text -->
+        <div class="px-[15px] order-1 lg:order-3">
+          <p class="text-pink font-medium text-base mb-2">APP FactuFacil</p>
+          <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-5">
+            APP Factufacil
+          </h2>
+          <p class="text-[#7A7A7A] text-lg leading-[32px] mb-10">
+            Con el APP puedes facturar desde tu celular sin depender de una PC y en cualquier parte del mundo.
+          </p>
+
+          <a
+            href={whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block rounded-pill bg-[#DC4140] px-[77px] py-[18px] text-base font-medium text-white hover:bg-white hover:text-pink-soft hover:border-pink-soft border border-transparent transition-colors duration-300"
+          >
+            Descargar
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 4. E-COMMERCE                                                         -->
+  <!-- ===================================================================== -->
+  <section class="pt-[150px] md:pt-[60px] pb-0 bg-no-repeat bg-bottom">
+    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+
+      <!-- Section heading -->
+      <div class="text-center mb-5">
+        <p class="text-cta-500 text-base font-medium mb-2">WordPress</p>
+        <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-5">
+          Crea una tienda E-commerce con nosotros y aumenta tus ventas
+        </h2>
+      </div>
+      <p class="text-center text-body text-lg leading-[32px] mb-10">
+        Quieres crecer tu presencia en internet, da el salto online y empieza a vender
+      </p>
+
+      <!-- E-commerce content: mobile mockup + steps -->
+      <div class="grid grid-cols-1 lg:grid-cols-[42%_58%] gap-8 items-start">
+        <!-- Mobile mockup image -->
+        <div class="px-[15px] text-left mb-[60px] lg:mb-0">
+          <img
+            src="/images/ecommerce-mobile.png"
+            alt="Tienda e-commerce movil"
+            class="w-full max-w-[350px]"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Steps -->
+        <div class="px-[15px]">
+          {[
+            {
+              step: '01',
+              title: 'Escoge la plantilla que se adapte a tu negocio',
+              desc: 'Escoge entre nuestros mas de 30 disenos, crea tu logo y estilo',
+            },
+            {
+              step: '02',
+              title: 'Ingresa tus productos',
+              desc: 'Puedes editar en un entorno amigable gracias a WordPress. Pon tu precio y stock, mira nuestros videos tutoriales.',
+            },
+            {
+              step: '03',
+              title: 'Conecta a tus redes sociales y comienza a vender',
+              desc: 'Crece de forma organica en Facebook y Google. Te asesoramos.',
+            },
+          ].map(({ step, title, desc }) => (
+            <div class="bg-white rounded-[10px] shadow-[3px_3px_10px_rgba(55,55,55,0.07)] p-[30px] mb-[30px] lg:ml-[50px] flex items-start gap-[30px] hover:shadow-none transition-shadow duration-300">
+              <div class="flex-shrink-0 w-[24%] min-w-[60px]">
+                <div class="flex h-16 w-16 items-center justify-center rounded-full bg-brand-500/10">
+                  <span class="text-2xl font-bold text-brand-500">{step}</span>
+                </div>
+              </div>
+              <div>
+                <h4 class="text-dark text-[24px] font-semibold leading-[32px] mb-[10px]">{title}</h4>
+                <p class="text-body text-base leading-[30px]">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 5. VENTA DE EQUIPO — Slideshow background, split layout               -->
+  <!-- ===================================================================== -->
+  <section class="relative py-[100px] md:py-[60px] overflow-hidden">
+    <!-- Background slideshow effect -->
+    <div class="absolute inset-0 z-0" aria-hidden="true">
+      <img
+        src="/images/fondo2.png"
+        alt=""
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-white/80 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-[42%_58%] gap-8 items-center">
+
+        <!-- Text -->
+        <div class="px-[15px]">
+          <p class="text-cta-500 text-base font-medium mb-2">equipo para PDV</p>
+          <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-5">
+            Venta de equipo
+          </h2>
+          <p class="text-white text-lg leading-[32px] mb-10">
+            Gaveta, Impresora termica, Lector de codigo de barra, PC, Laptop, pantallas tactiles, Biometrico y mas.
+          </p>
+
+          <a
+            href={whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block rounded-pill bg-[#DC4140] px-[77px] py-[18px] text-base font-medium text-white hover:bg-white hover:text-pink-soft border border-transparent hover:border-pink-soft transition-colors duration-300"
+          >
+            Ver Tienda
+          </a>
+        </div>
+
+        <!-- Equipment image -->
+        <div class="px-[15px] text-right">
+          <img
+            src="/images/equipos-pos.png"
+            alt="Equipo POS para punto de venta"
+            class="w-full max-w-[500px] ml-auto"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 6. PRICING                                                            -->
+  <!-- ===================================================================== -->
+  <section id="precios" class="pt-[110px] pb-[150px] md:py-[60px]">
+    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+
+      <!-- Section heading -->
+      <div class="text-center mb-10">
+        <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-4">
+          Elige un plan que<br /> se adecue a tu negocio
+        </h2>
+        <p class="text-body text-lg leading-[32px]">
+          Todos nuestros planes incluyen facturacion electronica ilimitada.
+        </p>
+      </div>
+
+      <!-- Pricing cards -->
+      <div class="mx-auto grid max-w-[900px] gap-8 md:grid-cols-2">
+        {planes.map((plan) => (
+          <div class={`relative rounded-2xl p-8 flex flex-col transition-shadow duration-300 ${
+            plan.isPopular
+              ? 'bg-accent-700 text-white shadow-2xl ring-4 ring-accent-400/30 scale-105'
+              : 'bg-white border border-gray-200 shadow-[0_5px_30px_rgba(42,67,113,0.1)] text-dark'
+          }`}>
+            {plan.isPopular && (
+              <span class="absolute -top-4 left-1/2 -translate-x-1/2 rounded-pill bg-cta-500 px-6 py-1.5 text-sm font-bold text-white uppercase tracking-wider">
+                Mas Popular
+              </span>
+            )}
+
+            <h3 class={`text-2xl font-bold mb-3 ${plan.isPopular ? 'text-white' : 'text-dark'}`}>
+              {plan.name}
+            </h3>
+
+            <div class="mb-2">
+              <span class={`text-[48px] font-bold ${plan.isPopular ? 'text-white' : 'text-dark'}`}>
+                S/.{plan.price}
+              </span>
+              <span class={`text-lg ${plan.isPopular ? 'text-white/70' : 'text-body'}`}>/mes</span>
+            </div>
+            <p class={`text-sm mb-6 ${plan.isPopular ? 'text-white/70' : 'text-body'}`}>
+              o S/.{plan.yearlyPrice}/anio (ahorra 2 meses)
+            </p>
+
+            <ul class="space-y-3 flex-1 mb-8 list-none p-0">
+              {plan.features.map((feature) => (
+                <li class="flex items-start gap-3 text-base">
+                  <svg xmlns="http://www.w3.org/2000/svg" class={`h-5 w-5 flex-shrink-0 mt-0.5 ${plan.isPopular ? 'text-teal' : 'text-brand-500'}`} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class={plan.isPopular ? 'text-white/90' : 'text-body'}>{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href="/suscripcion"
+              class={`block w-full rounded-pill py-[18px] text-center text-base font-medium transition-colors duration-300 ${
+                plan.isPopular
+                  ? 'bg-cta-500 text-white hover:bg-dark'
+                  : 'bg-cta-500 text-white hover:bg-dark'
+              }`}
+            >
+              Empezar ahora
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 7. CURSOS / APRENDIZAJE                                               -->
+  <!-- ===================================================================== -->
+  <section class="py-[100px] md:py-[60px] bg-[#3A8D351A]">
+    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-10">
+        <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-4">
+          Nunca pares de aprender<br />El plan PRO te hace PRO en los negocios
+        </h2>
+      </div>
+
+      <div class="text-center">
+        <img
+          src="/images/fondo-de-cursos.png"
+          alt="Cursos de FactuFacil"
+          class="w-full max-w-[900px] mx-auto rounded-lg"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 8. TESTIMONIALS + CTA — Purple background #511CC5                     -->
+  <!-- ===================================================================== -->
+  <section class="py-[100px] md:py-[60px] bg-[#511CC5]">
+    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+
+      <!-- Heading -->
+      <div class="text-center mb-10">
+        <h2 class="text-white text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-4">
+          UNETE A NOSOTROS
+        </h2>
+        <p class="text-white/80 text-lg leading-[32px] max-w-2xl mx-auto">
+          Empieza hoy y lleva tu negocio al siguiente nivel con FactuFacil.
+        </p>
+      </div>
+
+      <!-- Testimonials grid -->
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-12">
+        {testimonios.map((t) => (
+          <div class="rounded-2xl bg-white/10 backdrop-blur-sm p-7 flex flex-col border border-white/10">
+            <!-- Stars -->
+            <div class="flex gap-1 mb-3" aria-label={`${t.rating} de 5 estrellas`}>
+              {Array.from({ length: t.rating }).map(() => (
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              ))}
+            </div>
+
+            <h4 class="text-lg font-bold text-white mb-2">{t.title}</h4>
+            <p class="text-sm text-white/70 leading-relaxed flex-1 mb-4">"{t.quote}"</p>
+
+            <!-- Author -->
+            <div class="flex items-center gap-3">
+              <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white/20 text-white font-bold text-sm">
+                {t.author.charAt(0)}
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-white">{t.author}</p>
+                <p class="text-xs text-white/60">{t.role} — {t.company}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA Button -->
+      <div class="text-center">
+        <a
+          href="/suscripcion"
+          class="inline-block rounded-pill bg-cta-500 px-[77px] py-[18px] text-base font-medium text-white hover:bg-dark transition-colors duration-300"
+        >
+          Registrate
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

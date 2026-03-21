@@ -1,0 +1,318 @@
+---
+/**
+ * BaseLayout — wraps every FactuFacil page with navbar, footer, and meta tags.
+ * Design replicated from ProgriSaaS WordPress theme.
+ */
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'Sistema de facturacion electronica que crece contigo. Gestion de caja, inventarios, puntos de ventas y mas.',
+  canonicalUrl,
+  ogImage,
+} = Astro.props;
+
+const siteName  = 'FactuFacil';
+const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
+const whatsapp  = 'https://wa.me/51964979320';
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:site_name"   content={siteName} />
+    <meta property="og:title"       content={fullTitle} />
+    <meta property="og:description" content={description} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    <title>{fullTitle}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+
+    <!-- DM Sans font (matches ProgriSaaS theme) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta name="generator" content={Astro.generator} />
+  </head>
+
+  <body class="flex min-h-screen flex-col bg-white text-body antialiased font-sans text-lg leading-[1.78]">
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- NavBar (Desktop)                                                    -->
+    <!-- ------------------------------------------------------------------ -->
+    <header id="site-header" class="sticky top-0 z-50 bg-white shadow-[0_5px_30px_0_rgba(42,67,113,0.15)] transition-all duration-300">
+      <div class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-0">
+
+        <!-- Logo -->
+        <a href="/" class="inline-flex items-center py-2.5" aria-label="FactuFacil inicio">
+          <img
+            src="/images/Logo-Factura-facil.png"
+            alt="FactuFacil"
+            class="w-[180px] md:w-[211px]"
+            loading="eager"
+          />
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden lg:flex items-center h-full" aria-label="Navegacion principal">
+          <ul class="flex items-center h-full list-none m-0 p-0">
+            <li class="mx-5 py-7 relative group">
+              <a href="/#top" class="text-dark font-medium text-[15px] leading-[35px] hover:text-orange transition-colors duration-200 relative after:absolute after:h-[2px] after:w-0 after:bottom-[-2px] after:left-0 after:bg-orange after:transition-all after:duration-300 hover:after:w-5">
+                Inicio
+              </a>
+            </li>
+            <li class="mx-5 py-7 relative group">
+              <a href="/#about" class="text-dark font-medium text-[15px] leading-[35px] hover:text-orange transition-colors duration-200 relative after:absolute after:h-[2px] after:w-0 after:bottom-[-2px] after:left-0 after:bg-orange after:transition-all after:duration-300 hover:after:w-5">
+                Nosotros
+              </a>
+            </li>
+            <li class="mx-5 py-7 relative group">
+              <a href="/#payment" class="text-dark font-medium text-[15px] leading-[35px] hover:text-orange transition-colors duration-200 relative after:absolute after:h-[2px] after:w-0 after:bottom-[-2px] after:left-0 after:bg-orange after:transition-all after:duration-300 hover:after:w-5">
+                Servicios
+              </a>
+            </li>
+            <li class="mx-5 py-7 relative group">
+              <a href="/#precios" class="text-dark font-medium text-[15px] leading-[35px] hover:text-orange transition-colors duration-200 relative after:absolute after:h-[2px] after:w-0 after:bottom-[-2px] after:left-0 after:bg-orange after:transition-all after:duration-300 hover:after:w-5">
+                Precios
+              </a>
+            </li>
+            <li class="mx-5 py-7 relative group">
+              <a href={whatsapp} target="_blank" rel="noopener noreferrer" class="text-dark font-medium text-[15px] leading-[35px] hover:text-orange transition-colors duration-200 relative after:absolute after:h-[2px] after:w-0 after:bottom-[-2px] after:left-0 after:bg-orange after:transition-all after:duration-300 hover:after:w-5">
+                Contacto
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- CTA Button (Desktop) -->
+        <a
+          href="https://demo.factufacil.pe"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden lg:inline-block rounded-pill bg-cta-500 px-[45px] py-[14px] text-base font-medium text-white hover:bg-dark transition-colors duration-300 whitespace-nowrap"
+        >
+          Ver Demo
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          id="mobile-menu-toggle"
+          class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 cursor-pointer"
+          aria-label="Abrir menu de navegacion"
+          aria-expanded="false"
+        >
+          <span class="block w-6 h-[2px] bg-dark transition-all duration-300 origin-center" id="bar1"></span>
+          <span class="block w-6 h-[2px] bg-dark transition-all duration-300" id="bar2"></span>
+          <span class="block w-6 h-[2px] bg-dark transition-all duration-300 origin-center" id="bar3"></span>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <nav
+        id="mobile-menu"
+        class="lg:hidden hidden bg-white border-t border-gray-100 overflow-hidden transition-all duration-300"
+        aria-label="Navegacion movil"
+      >
+        <ul class="list-none m-0 p-0">
+          <li class="border-b border-gray-100">
+            <a href="/#top" class="block px-6 py-4 text-dark font-medium text-[15px] hover:text-orange hover:bg-gray-50 transition-colors duration-200">
+              Inicio
+            </a>
+          </li>
+          <li class="border-b border-gray-100">
+            <a href="/#about" class="block px-6 py-4 text-dark font-medium text-[15px] hover:text-orange hover:bg-gray-50 transition-colors duration-200">
+              Nosotros
+            </a>
+          </li>
+          <li class="border-b border-gray-100">
+            <a href="/#payment" class="block px-6 py-4 text-dark font-medium text-[15px] hover:text-orange hover:bg-gray-50 transition-colors duration-200">
+              Servicios
+            </a>
+          </li>
+          <li class="border-b border-gray-100">
+            <a href="/#precios" class="block px-6 py-4 text-dark font-medium text-[15px] hover:text-orange hover:bg-gray-50 transition-colors duration-200">
+              Precios
+            </a>
+          </li>
+          <li class="border-b border-gray-100">
+            <a href={whatsapp} target="_blank" rel="noopener noreferrer" class="block px-6 py-4 text-dark font-medium text-[15px] hover:text-orange hover:bg-gray-50 transition-colors duration-200">
+              Contacto
+            </a>
+          </li>
+          <li class="p-4">
+            <a
+              href="https://demo.factufacil.pe"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block text-center rounded-pill bg-cta-500 px-[45px] py-[14px] text-base font-medium text-white hover:bg-dark transition-colors duration-300"
+            >
+              Ver Demo
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- Page content                                                        -->
+    <!-- ------------------------------------------------------------------ -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- Footer                                                              -->
+    <!-- ------------------------------------------------------------------ -->
+    <footer class="bg-dark text-gray-300">
+      <div class="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:px-8">
+        <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+
+          <!-- Brand column -->
+          <div>
+            <a href="/" class="inline-block mb-6">
+              <img
+                src="/images/SmallFactufacil-01.png"
+                alt="FactuFacil"
+                class="h-12"
+                loading="lazy"
+              />
+            </a>
+            <p class="text-[16px] text-gray-400 leading-relaxed mb-6">
+              Facturacion Electronica conectada a SUNAT. El sistema que crece con tu negocio.
+            </p>
+            <div class="flex gap-4">
+              <a href="https://www.facebook.com/factufacilpe" target="_blank" rel="noopener noreferrer" class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-cta-500 transition-colors duration-300" aria-label="Facebook">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+              </a>
+              <a href={whatsapp} target="_blank" rel="noopener noreferrer" class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-green-600 transition-colors duration-300" aria-label="WhatsApp">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Producto column -->
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-6">Producto</h3>
+            <ul class="space-y-3 text-[16px] list-none p-0">
+              <li><a href="/#about"      class="text-gray-400 hover:text-white transition-colors duration-300">Caracteristicas</a></li>
+              <li><a href="/facturacion-electronica" class="text-gray-400 hover:text-white transition-colors duration-300">Facturacion Electronica</a></li>
+              <li><a href="/#precios"    class="text-gray-400 hover:text-white transition-colors duration-300">Precios</a></li>
+              <li><a href="/suscripcion" class="text-gray-400 hover:text-white transition-colors duration-300">Suscribirse</a></li>
+              <li>
+                <a href="https://demo.factufacil.pe" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-300">
+                  Ver Demo
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Legal column -->
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-6">Legal</h3>
+            <ul class="space-y-3 text-[16px] list-none p-0">
+              <li><a href="/politica-privacidad" class="text-gray-400 hover:text-white transition-colors duration-300">Politica de Privacidad</a></li>
+            </ul>
+            <div class="mt-8">
+              <p class="text-sm text-gray-500 mb-2">Industrias atendidas:</p>
+              <p class="text-sm text-gray-400">Ferreterias, Mini market, Boticas, Restaurantes</p>
+            </div>
+          </div>
+
+          <!-- Contacto column -->
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-6">Contacto</h3>
+            <ul class="space-y-4 text-[16px] list-none p-0">
+              <li class="flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cta-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                <a href="tel:+51964979320" class="text-gray-400 hover:text-white transition-colors duration-300">+51 964 979 320</a>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cta-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <a href="mailto:ventas@factufacil.pe" class="text-gray-400 hover:text-white transition-colors duration-300">ventas@factufacil.pe</a>
+              </li>
+            </ul>
+            <a
+              href={whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-6 inline-flex items-center gap-2 rounded-pill bg-green-600 px-6 py-3 text-sm font-semibold text-white hover:bg-green-700 transition-colors duration-300"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-12 border-t border-white/10 pt-8 text-center text-sm text-gray-500">
+          &copy; {new Date().getFullYear()} FactuFacil. Todos los derechos reservados.
+        </div>
+      </div>
+    </footer>
+
+    <!-- Mobile menu toggle script -->
+    <script>
+      const toggle = document.getElementById('mobile-menu-toggle');
+      const menu = document.getElementById('mobile-menu');
+      const bar1 = document.getElementById('bar1');
+      const bar2 = document.getElementById('bar2');
+      const bar3 = document.getElementById('bar3');
+
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+          const isOpen = !menu.classList.contains('hidden');
+          if (isOpen) {
+            menu.classList.add('hidden');
+            toggle.setAttribute('aria-expanded', 'false');
+            bar1?.classList.remove('rotate-45', 'translate-y-[5px]');
+            bar2?.classList.remove('opacity-0');
+            bar3?.classList.remove('-rotate-45', '-translate-y-[5px]');
+          } else {
+            menu.classList.remove('hidden');
+            toggle.setAttribute('aria-expanded', 'true');
+            bar1?.classList.add('rotate-45', 'translate-y-[5px]');
+            bar2?.classList.add('opacity-0');
+            bar3?.classList.add('-rotate-45', '-translate-y-[5px]');
+          }
+        });
+
+        // Close menu on link click
+        menu.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            menu.classList.add('hidden');
+            toggle.setAttribute('aria-expanded', 'false');
+            bar1?.classList.remove('rotate-45', 'translate-y-[5px]');
+            bar2?.classList.remove('opacity-0');
+            bar3?.classList.remove('-rotate-45', '-translate-y-[5px]');
+          });
+        });
+      }
+    </script>
+
+  </body>
+</html>
