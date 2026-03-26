@@ -22,3 +22,6 @@ Thumbs.db
 
 # skills lock (claude code)
 skills-lock.json
+
+# infra (contiene account IDs reales)
+infra/
