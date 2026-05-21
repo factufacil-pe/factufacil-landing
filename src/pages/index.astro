@@ -28,7 +28,6 @@ const { testimonios } = testimoniosResult.value;
 
 const whatsapp = 'https://wa.me/51964979320';
 
-// Feature icon colors from Elementor data
 const featureColors: Record<string, { icon: string; title: string }> = {
   mobile:    { icon: '#5322C0', title: '#5322C0' },
   inventory: { icon: '#FE3466', title: '#FE3466' },
@@ -43,15 +42,13 @@ const featureColors: Record<string, { icon: string; title: string }> = {
 >
 
   <!-- ===================================================================== -->
-  <!-- 1. HERO — bg green #3A8D35, split 50/50, curve bottom divider        -->
+  <!-- 1. HERO                                                                -->
   <!-- ===================================================================== -->
   <section id="top" class="relative overflow-hidden bg-brand-500 pt-[200px] pb-[200px] md:pt-20 md:pb-20">
-    <!-- Background image pattern -->
     <div class="absolute inset-0 opacity-30" aria-hidden="true">
       <img src="/images/home2-bg-1.png" alt="" class="absolute top-0 left-0 h-full object-cover object-left-top pointer-events-none" />
     </div>
 
-    <!-- Curved bottom divider -->
     <div class="absolute bottom-0 left-0 w-[110%] -ml-[5%]" aria-hidden="true">
       <svg viewBox="0 0 1440 165" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" class="w-full h-[165px] md:h-[100px]">
         <path d="M0 165C0 165 360 0 720 0C1080 0 1440 165 1440 165H0Z" fill="#FFFFFF"/>
@@ -61,19 +58,19 @@ const featureColors: Record<string, { icon: string; title: string }> = {
     <div class="relative mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
-        <!-- Left column: text -->
-        <div class="text-left lg:pr-4 order-2 lg:order-1 mt-[60px] lg:mt-0">
-          <h1 class="text-[#DC4140] font-semibold text-[42px] lg:text-[60px] leading-[1.2] mb-0">
+        <div class="text-left lg:pr-4 order-2 lg:order-1 mt-[60px] lg:mt-0" data-hero-text-col>
+          <h1 data-hero-child class="text-[#DC4140] font-semibold text-[42px] lg:text-[60px] leading-[1.2] mb-0">
             FactuFacil
           </h1>
-          <h2 class="text-[#353A8D] font-medium text-[36px] lg:text-[48px] leading-[1.2] mb-5">
+          <h2 data-hero-child class="text-[#353A8D] font-medium text-[36px] lg:text-[48px] leading-[1.2] mb-5">
             Sistema de facturacion electronica que crece contigo
           </h2>
-          <p class="text-white text-lg leading-[32px] font-normal mb-[35px]">
+          <p data-hero-child class="text-white text-lg leading-[32px] font-normal mb-[35px]">
             Nos dedicamos a lo que tu negocio necesita, gestion de caja, inventarios, puntos de ventas y mas para que tu negocio no pare de crecer
           </p>
 
           <a
+            data-hero-child
             href="https://demo.factufacil.pe"
             target="_blank"
             rel="noopener noreferrer"
@@ -82,14 +79,13 @@ const featureColors: Record<string, { icon: string; title: string }> = {
             VER DEMO
           </a>
 
-          <div class="text-white text-sm mt-3">
+          <div data-hero-child class="text-white text-sm mt-3">
             <p class="mb-0">Usuario: demo01@gmail.com</p>
             <p class="mb-0">Clave: 123456</p>
           </div>
         </div>
 
-        <!-- Right column: image -->
-        <div class="order-1 lg:order-2 text-center lg:mt-[30px]">
+        <div class="order-1 lg:order-2 text-center lg:mt-[30px]" data-hero-image-col>
           <img
             src="/images/Macbook-y-celular.png"
             alt="FactuFacil en Macbook y celular"
@@ -102,21 +98,19 @@ const featureColors: Record<string, { icon: string; title: string }> = {
   </section>
 
   <!-- ===================================================================== -->
-  <!-- 2. ABOUT — Features section (4 icon boxes in grid)                    -->
+  <!-- 2. ABOUT — Features section                                            -->
   <!-- ===================================================================== -->
   <section id="about" class="py-[100px] md:py-[60px]">
     <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
-      <!-- Section heading -->
-      <div class="text-center mb-[35px] max-w-[66.67%] mx-auto px-[15px]">
+      <div class="text-center mb-[35px] max-w-[66.67%] mx-auto px-[15px]" data-fade-up>
         <p class="text-cta-500 text-base font-medium mb-2">Ferreterias, Mini market, Boticas, Restaurante y mucho mas</p>
         <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-5">
           FactuFacil se adapta a cualquier modelo <br class="hidden lg:block" /> de negocio que tengas
         </h2>
       </div>
 
-      <!-- Three screens image -->
-      <div class="text-center mb-[50px] px-[15px]">
+      <div class="text-center mb-[50px] px-[15px]" data-fade-up>
         <img
           src="/images/tres-pantallas-original.png"
           alt="FactuFacil en multiples dispositivos"
@@ -125,12 +119,11 @@ const featureColors: Record<string, { icon: string; title: string }> = {
         />
       </div>
 
-      <!-- Feature cards grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0" data-feature-cards>
         {features.map((f) => {
           const colors = featureColors[f.icon] || featureColors['chart'];
           return (
-            <div class="px-[15px] pt-5 mb-8 lg:mb-0">
+            <div class="px-[15px] pt-5 mb-8 lg:mb-0" data-feature-card>
               <div class="text-center">
                 <div class="mb-[35px]">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke={colors.icon} stroke-width="1.5" aria-hidden="true">
@@ -152,8 +145,7 @@ const featureColors: Record<string, { icon: string; title: string }> = {
         })}
       </div>
 
-      <!-- Saber Mas button -->
-      <div class="text-center mt-10">
+      <div class="text-center mt-10" data-fade-up>
         <a
           href={whatsapp}
           target="_blank"
@@ -167,15 +159,13 @@ const featureColors: Record<string, { icon: string; title: string }> = {
   </section>
 
   <!-- ===================================================================== -->
-  <!-- 3. FACTURACION ELECTRONICA — Split layout (image + text + icon list)  -->
+  <!-- 3. FACTURACION ELECTRONICA — Split layout                             -->
   <!-- ===================================================================== -->
   <section id="payment" class="py-[140px] md:py-[60px] bg-[#3A8D350D]">
     <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
-      <!-- Facturacion subsection -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pb-[150px] md:pb-[60px]">
-        <!-- Image -->
-        <div class="px-[15px] text-center lg:text-left">
+        <div class="px-[15px] text-center lg:text-left" data-slide-left>
           <img
             src="/images/factura-2.png"
             alt="Facturacion electronica FactuFacil"
@@ -184,8 +174,7 @@ const featureColors: Record<string, { icon: string; title: string }> = {
           />
         </div>
 
-        <!-- Text -->
-        <div class="px-[15px]">
+        <div class="px-[15px]" data-fade-up>
           <p class="text-[#DC4140] text-base font-medium mb-2">Conexion con SUNAT</p>
           <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-5">
             Facturacion Electronica
@@ -221,10 +210,8 @@ const featureColors: Record<string, { icon: string; title: string }> = {
         </div>
       </div>
 
-      <!-- Gestion de Compras e Inventarios subsection -->
       <div class="grid grid-cols-1 lg:grid-cols-[42%_8%_50%] gap-0 items-start pb-[120px] md:pb-[60px]">
-        <!-- Text -->
-        <div class="px-[15px] order-1">
+        <div class="px-[15px] order-1" data-fade-up>
           <p class="text-cta-500 text-base font-medium mb-2">Te ensenamos Metodologias de Gestion</p>
           <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-5">
             Gestion de Compras e Inventarios
@@ -233,7 +220,6 @@ const featureColors: Record<string, { icon: string; title: string }> = {
             Ingresa tus compras en nuestro sistema para que tengas un control de tu inventario
           </p>
 
-          <!-- Icon box: Compras -->
           <div class="flex items-start gap-5 mb-[30px]">
             <div class="flex-shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-[30px] w-[30px] text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -246,7 +232,6 @@ const featureColors: Record<string, { icon: string; title: string }> = {
             </div>
           </div>
 
-          <!-- Icon box: Inventarios -->
           <div class="flex items-start gap-5">
             <div class="flex-shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-[30px] w-[30px] text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -260,11 +245,9 @@ const featureColors: Record<string, { icon: string; title: string }> = {
           </div>
         </div>
 
-        <!-- Spacer (hidden on mobile) -->
         <div class="hidden lg:block order-2"></div>
 
-        <!-- Image -->
-        <div class="px-[15px] order-3 mt-10 lg:mt-0">
+        <div class="px-[15px] order-3 mt-10 lg:mt-0" data-slide-right>
           <img
             src="/images/compras.png"
             alt="Gestion de compras e inventarios"
@@ -274,10 +257,8 @@ const featureColors: Record<string, { icon: string; title: string }> = {
         </div>
       </div>
 
-      <!-- APP FactuFacil subsection -->
       <div class="grid grid-cols-1 lg:grid-cols-[50%_8%_42%] gap-0 items-center">
-        <!-- Image (pago app) -->
-        <div class="px-[15px] order-2 lg:order-1 mt-10 lg:mt-0">
+        <div class="px-[15px] order-2 lg:order-1 mt-10 lg:mt-0" data-slide-left>
           <img
             src="/images/pago-1.png"
             alt="APP FactuFacil"
@@ -286,11 +267,9 @@ const featureColors: Record<string, { icon: string; title: string }> = {
           />
         </div>
 
-        <!-- Spacer -->
         <div class="hidden lg:block order-2"></div>
 
-        <!-- Text -->
-        <div class="px-[15px] order-1 lg:order-3">
+        <div class="px-[15px] order-1 lg:order-3" data-fade-up>
           <p class="text-pink font-medium text-base mb-2">APP FactuFacil</p>
           <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-5">
             APP Factufacil
@@ -318,21 +297,18 @@ const featureColors: Record<string, { icon: string; title: string }> = {
   <section class="pt-[150px] md:pt-[60px] pb-0 bg-no-repeat bg-bottom">
     <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
-      <!-- Section heading -->
-      <div class="text-center mb-5">
+      <div class="text-center mb-5" data-fade-up>
         <p class="text-cta-500 text-base font-medium mb-2">WordPress</p>
         <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-5">
           Crea una tienda E-commerce con nosotros y aumenta tus ventas
         </h2>
       </div>
-      <p class="text-center text-body text-lg leading-[32px] mb-10">
+      <p class="text-center text-body text-lg leading-[32px] mb-10" data-fade-up>
         Quieres crecer tu presencia en internet, da el salto online y empieza a vender
       </p>
 
-      <!-- E-commerce content: mobile mockup + steps -->
       <div class="grid grid-cols-1 lg:grid-cols-[42%_58%] gap-8 items-start">
-        <!-- Mobile mockup image -->
-        <div class="px-[15px] text-left mb-[60px] lg:mb-0">
+        <div class="px-[15px] text-left mb-[60px] lg:mb-0" data-slide-left>
           <img
             src="/images/ecommerce-mobile.png"
             alt="Tienda e-commerce movil"
@@ -341,8 +317,7 @@ const featureColors: Record<string, { icon: string; title: string }> = {
           />
         </div>
 
-        <!-- Steps -->
-        <div class="px-[15px]">
+        <div class="px-[15px]" data-ecommerce-steps>
           {[
             {
               step: '01',
@@ -360,7 +335,7 @@ const featureColors: Record<string, { icon: string; title: string }> = {
               desc: 'Crece de forma organica en Facebook y Google. Te asesoramos.',
             },
           ].map(({ step, title, desc }) => (
-            <div class="bg-white rounded-[10px] shadow-[3px_3px_10px_rgba(55,55,55,0.07)] p-[30px] mb-[30px] lg:ml-[50px] flex items-start gap-[30px] hover:shadow-none transition-shadow duration-300">
+            <div data-ecommerce-step class="bg-white rounded-[10px] shadow-[3px_3px_10px_rgba(55,55,55,0.07)] p-[30px] mb-[30px] lg:ml-[50px] flex items-start gap-[30px] hover:shadow-none transition-shadow duration-300">
               <div class="flex-shrink-0 w-[24%] min-w-[60px]">
                 <div class="flex h-16 w-16 items-center justify-center rounded-full bg-brand-500/10">
                   <span class="text-2xl font-bold text-brand-500">{step}</span>
@@ -378,10 +353,9 @@ const featureColors: Record<string, { icon: string; title: string }> = {
   </section>
 
   <!-- ===================================================================== -->
-  <!-- 5. VENTA DE EQUIPO — Slideshow background, split layout               -->
+  <!-- 5. VENTA DE EQUIPO                                                    -->
   <!-- ===================================================================== -->
   <section class="relative py-[100px] md:py-[60px] overflow-hidden">
-    <!-- Background slideshow effect -->
     <div class="absolute inset-0 z-0" aria-hidden="true">
       <img
         src="/images/fondo2.png"
@@ -395,8 +369,7 @@ const featureColors: Record<string, { icon: string; title: string }> = {
     <div class="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-[42%_58%] gap-8 items-center">
 
-        <!-- Text -->
-        <div class="px-[15px]">
+        <div class="px-[15px]" data-fade-up>
           <p class="text-cta-500 text-base font-medium mb-2">equipo para PDV</p>
           <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-5">
             Venta de equipo
@@ -415,8 +388,7 @@ const featureColors: Record<string, { icon: string; title: string }> = {
           </a>
         </div>
 
-        <!-- Equipment image -->
-        <div class="px-[15px] text-right">
+        <div class="px-[15px] text-right" data-slide-right>
           <img
             src="/images/equipos-pos.png"
             alt="Equipo POS para punto de venta"
@@ -434,8 +406,7 @@ const featureColors: Record<string, { icon: string; title: string }> = {
   <section id="precios" class="pt-[110px] pb-[150px] md:py-[60px]">
     <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
-      <!-- Section heading -->
-      <div class="text-center mb-10">
+      <div class="text-center mb-10" data-fade-up>
         <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-4">
           Elige un plan que<br /> se adecue a tu negocio
         </h2>
@@ -444,10 +415,9 @@ const featureColors: Record<string, { icon: string; title: string }> = {
         </p>
       </div>
 
-      <!-- Pricing cards -->
-      <div class="mx-auto grid max-w-[900px] gap-8 md:grid-cols-2">
+      <div class="mx-auto grid max-w-[900px] gap-8 md:grid-cols-2" data-pricing-cards>
         {planes.map((plan) => (
-          <div class={`relative rounded-2xl p-8 flex flex-col transition-shadow duration-300 ${
+          <div data-pricing-card class={`relative rounded-2xl p-8 flex flex-col transition-shadow duration-300 ${
             plan.isPopular
               ? 'bg-accent-700 text-white shadow-2xl ring-4 ring-accent-400/30 scale-105'
               : 'bg-white border border-gray-200 shadow-[0_5px_30px_rgba(42,67,113,0.1)] text-dark'
@@ -505,13 +475,13 @@ const featureColors: Record<string, { icon: string; title: string }> = {
   <section class="py-[100px] md:py-[60px] bg-[#3A8D351A]">
     <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
-      <div class="text-center mb-10">
+      <div class="text-center mb-10" data-fade-up>
         <h2 class="text-dark text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-4">
           Nunca pares de aprender<br />El plan PRO te hace PRO en los negocios
         </h2>
       </div>
 
-      <div class="text-center">
+      <div class="text-center" data-fade-up>
         <img
           src="/images/fondo-de-cursos.png"
           alt="Cursos de FactuFacil"
@@ -523,13 +493,12 @@ const featureColors: Record<string, { icon: string; title: string }> = {
   </section>
 
   <!-- ===================================================================== -->
-  <!-- 8. TESTIMONIALS + CTA — Purple background #511CC5                     -->
+  <!-- 8. TESTIMONIALS + CTA                                                 -->
   <!-- ===================================================================== -->
   <section class="py-[100px] md:py-[60px] bg-[#511CC5]">
     <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
-      <!-- Heading -->
-      <div class="text-center mb-10">
+      <div class="text-center mb-10" data-fade-up>
         <h2 class="text-white text-[36px] lg:text-[48px] font-medium leading-[1.2] mb-4">
           UNETE A NOSOTROS
         </h2>
@@ -538,11 +507,9 @@ const featureColors: Record<string, { icon: string; title: string }> = {
         </p>
       </div>
 
-      <!-- Testimonials grid -->
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-12">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-12" data-testimonial-cards>
         {testimonios.map((t) => (
-          <div class="rounded-2xl bg-white/10 backdrop-blur-sm p-7 flex flex-col border border-white/10">
-            <!-- Stars -->
+          <div data-testimonial-card class="rounded-2xl bg-white/10 backdrop-blur-sm p-7 flex flex-col border border-white/10">
             <div class="flex gap-1 mb-3" aria-label={`${t.rating} de 5 estrellas`}>
               {Array.from({ length: t.rating }).map(() => (
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -554,7 +521,6 @@ const featureColors: Record<string, { icon: string; title: string }> = {
             <h4 class="text-lg font-bold text-white mb-2">{t.title}</h4>
             <p class="text-sm text-white/70 leading-relaxed flex-1 mb-4">"{t.quote}"</p>
 
-            <!-- Author -->
             <div class="flex items-center gap-3">
               <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white/20 text-white font-bold text-sm">
                 {t.author.charAt(0)}
@@ -568,8 +534,7 @@ const featureColors: Record<string, { icon: string; title: string }> = {
         ))}
       </div>
 
-      <!-- CTA Button -->
-      <div class="text-center">
+      <div class="text-center" data-fade-up>
         <a
           href="/suscripcion"
           class="inline-block rounded-pill bg-cta-500 px-[77px] py-[18px] text-base font-medium text-white hover:bg-dark transition-colors duration-300"
@@ -579,5 +544,123 @@ const featureColors: Record<string, { icon: string; title: string }> = {
       </div>
     </div>
   </section>
+
+  <script>
+    import { animate, stagger } from 'animejs';
+
+    // ── Hero (runs on load, no scroll trigger) ────────────────────────────────
+    const heroChildren = document.querySelectorAll('[data-hero-child]');
+    const heroImageCol = document.querySelector('[data-hero-image-col]');
+
+    if (heroChildren.length) {
+      animate(heroChildren, {
+        opacity: [0, 1],
+        translateY: [50, 0],
+        duration: 900,
+        ease: 'outExpo',
+        delay: stagger(160, { start: 250 }),
+      });
+    }
+
+    if (heroImageCol) {
+      animate(heroImageCol, {
+        opacity: [0, 1],
+        translateX: [70, 0],
+        duration: 1000,
+        ease: 'outExpo',
+        delay: 200,
+      });
+    }
+
+    // ── Scroll-trigger helper ─────────────────────────────────────────────────
+    function onEnter(el: Element, fn: () => void) {
+      const io = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          fn();
+          io.disconnect();
+        },
+        { threshold: 0.12 }
+      );
+      io.observe(el);
+    }
+
+    // Fade up (section headings, CTAs, descriptive blocks)
+    document.querySelectorAll('[data-fade-up]').forEach((el) => {
+      onEnter(el, () =>
+        animate(el, { opacity: [0, 1], translateY: [35, 0], duration: 750, ease: 'outExpo' })
+      );
+    });
+
+    // Slide from left (images on left side of split layouts)
+    document.querySelectorAll('[data-slide-left]').forEach((el) => {
+      onEnter(el, () =>
+        animate(el, { opacity: [0, 1], translateX: [-60, 0], duration: 800, ease: 'outExpo' })
+      );
+    });
+
+    // Slide from right (images on right side of split layouts)
+    document.querySelectorAll('[data-slide-right]').forEach((el) => {
+      onEnter(el, () =>
+        animate(el, { opacity: [0, 1], translateX: [60, 0], duration: 800, ease: 'outExpo' })
+      );
+    });
+
+    // Feature cards — staggered wave from bottom
+    const featureCards = document.querySelector('[data-feature-cards]');
+    if (featureCards) {
+      onEnter(featureCards, () =>
+        animate(featureCards.querySelectorAll('[data-feature-card]'), {
+          opacity: [0, 1],
+          translateY: [40, 0],
+          duration: 700,
+          ease: 'outExpo',
+          delay: stagger(120),
+        })
+      );
+    }
+
+    // E-commerce steps — staggered slide from right
+    const ecommerceSteps = document.querySelector('[data-ecommerce-steps]');
+    if (ecommerceSteps) {
+      onEnter(ecommerceSteps, () =>
+        animate(ecommerceSteps.querySelectorAll('[data-ecommerce-step]'), {
+          opacity: [0, 1],
+          translateX: [50, 0],
+          duration: 700,
+          ease: 'outExpo',
+          delay: stagger(150),
+        })
+      );
+    }
+
+    // Pricing cards — staggered rise with slight scale
+    const pricingCards = document.querySelector('[data-pricing-cards]');
+    if (pricingCards) {
+      onEnter(pricingCards, () =>
+        animate(pricingCards.querySelectorAll('[data-pricing-card]'), {
+          opacity: [0, 1],
+          translateY: [50, 0],
+          duration: 900,
+          ease: 'outExpo',
+          delay: stagger(180),
+        })
+      );
+    }
+
+    // Testimonial cards — staggered fade up
+    const testimonialCards = document.querySelector('[data-testimonial-cards]');
+    if (testimonialCards) {
+      onEnter(testimonialCards, () =>
+        animate(testimonialCards.querySelectorAll('[data-testimonial-card]'), {
+          opacity: [0, 1],
+          translateY: [30, 0],
+          duration: 650,
+          ease: 'outExpo',
+          delay: stagger(100),
+        })
+      );
+    }
+  </script>
 
 </BaseLayout>

@@ -1,4 +1,6 @@
 ---
+import ChatWidget from '../components/ui/ChatWidget.astro';
+
 /**
  * BaseLayout — wraps every FactuFacil page with navbar, footer, and meta tags.
  * Design replicated from ProgriSaaS WordPress theme.
@@ -59,6 +61,20 @@ const whatsapp  = 'https://wa.me/51964979320';
     />
 
     <meta name="generator" content={Astro.generator} />
+
+    <style is:global>
+      [data-hero-child],
+      [data-hero-image-col],
+      [data-fade-up],
+      [data-feature-card],
+      [data-slide-left],
+      [data-slide-right],
+      [data-ecommerce-step],
+      [data-pricing-card],
+      [data-testimonial-card] {
+        opacity: 0;
+      }
+    </style>
   </head>
 
   <body class="flex min-h-screen flex-col bg-white text-body antialiased font-sans text-lg leading-[1.78]">
@@ -274,6 +290,9 @@ const whatsapp  = 'https://wa.me/51964979320';
         </div>
       </div>
     </footer>
+
+    <!-- Chat widget -->
+    <ChatWidget />
 
     <!-- Mobile menu toggle script -->
     <script>
